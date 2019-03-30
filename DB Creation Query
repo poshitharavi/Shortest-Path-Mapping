@@ -1,0 +1,58 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+-- -----------------------------------------------------
+-- Schema pdsa_assigment
+-- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `pdsa_assigment` ;
+
+-- -----------------------------------------------------
+-- Schema pdsa_assigment
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `pdsa_assigment` DEFAULT CHARACTER SET utf8 ;
+USE `pdsa_assigment` ;
+
+-- -----------------------------------------------------
+-- Table `pdsa_assigment`.`city`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pdsa_assigment`.`city` ;
+
+CREATE TABLE IF NOT EXISTS `pdsa_assigment`.`city` (
+  `idcity` INT NOT NULL AUTO_INCREMENT,
+  `city_name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idcity`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `pdsa_assigment`.`distance`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `pdsa_assigment`.`distance` ;
+
+CREATE TABLE IF NOT EXISTS `pdsa_assigment`.`distance` (
+  `iddistance` INT NOT NULL AUTO_INCREMENT,
+  `distance` INT NOT NULL,
+  `city_form_id` INT NOT NULL,
+  `city_to_id` INT NOT NULL,
+  PRIMARY KEY (`iddistance`),
+  INDEX `fk_distance_city_idx` (`city_form_id` ASC),
+  INDEX `fk_distance_city1_idx` (`city_to_id` ASC),
+  CONSTRAINT `fk_distance_city`
+    FOREIGN KEY (`city_form_id`)
+    REFERENCES `pdsa_assigment`.`city` (`idcity`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_distance_city1`
+    FOREIGN KEY (`city_to_id`)
+    REFERENCES `pdsa_assigment`.`city` (`idcity`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
