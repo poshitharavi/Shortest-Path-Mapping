@@ -38,6 +38,7 @@ public class DistanceDetailFrame extends javax.swing.JFrame {
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu4 = new javax.swing.JMenu();
         addNewCityMenu = new javax.swing.JMenuItem();
+        addDistanceMenu = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
 
@@ -80,6 +81,14 @@ public class DistanceDetailFrame extends javax.swing.JFrame {
         });
         jMenu4.add(addNewCityMenu);
 
+        addDistanceMenu.setText("Add Distance");
+        addDistanceMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addDistanceMenuActionPerformed(evt);
+            }
+        });
+        jMenu4.add(addDistanceMenu);
+
         jMenuBar2.add(jMenu4);
 
         jMenu5.setText("Edit");
@@ -115,6 +124,12 @@ public class DistanceDetailFrame extends javax.swing.JFrame {
        new AddNewCityView().setVisible(true);
        this.setVisible(false);
     }//GEN-LAST:event_addNewCityMenuActionPerformed
+
+    private void addDistanceMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDistanceMenuActionPerformed
+        // TODO add your handling code here:
+        new AddNewDistance().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_addDistanceMenuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -152,6 +167,7 @@ public class DistanceDetailFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem addDistanceMenu;
     private javax.swing.JMenuItem addNewCityMenu;
     private javax.swing.JTable distanceTbl;
     private javax.swing.JMenu jMenu4;
