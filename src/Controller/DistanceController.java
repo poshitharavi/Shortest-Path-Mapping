@@ -12,6 +12,7 @@ import Model.Distance;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import sql.DistanceSQL;
@@ -55,5 +56,27 @@ public class DistanceController {
             return false;
         }
       
+    }
+    
+    public static ArrayList<Distance> getAllDistances(){
+        
+        ArrayList<Distance> distanceList = new ArrayList<>();
+        try {
+            Connection con = DBConnection.getDBConnection().getConenction();
+            ResultSet rs = DBTransaction.retriveData(DistanceSQL.getAllDistance(), con);
+            
+            while(rs.next()){
+                Distance dis = new Distance(rs.getInt("city_form_id"), rs.getInt("city_to_id"), rs.getInt("distance"));
+                dis.setFistCityName(rs.getString("city_from_name"));
+                dis.setSecCityName(rs.getString("city_to_name"));
+                distanceList.add(dis);
+            }
+            
+        } catch (Exception ex) {
+            Logger.getLogger(DistanceController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        return distanceList;
     }
 }

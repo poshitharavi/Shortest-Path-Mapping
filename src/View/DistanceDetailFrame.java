@@ -5,11 +5,15 @@
  */
 package View;
 
+import Controller.DistanceController;
 import DB.DBConnection;
+import Model.Distance;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -22,6 +26,7 @@ public class DistanceDetailFrame extends javax.swing.JFrame {
      */
     public DistanceDetailFrame() {
         initComponents();
+        this.loadDistances();
     }
 
     /**
@@ -46,16 +51,14 @@ public class DistanceDetailFrame extends javax.swing.JFrame {
 
         distanceTbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "City 1", "City 2", "Distance"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false
@@ -106,8 +109,8 @@ public class DistanceDetailFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(79, 79, 79)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(120, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 656, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(154, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,6 +167,15 @@ public class DistanceDetailFrame extends javax.swing.JFrame {
                 new DistanceDetailFrame().setVisible(true);
             }
         });
+    }
+    
+    public void loadDistances(){
+        ArrayList<Distance> distanceList = DistanceController.getAllDistances();
+        DefaultTableModel dtm = (DefaultTableModel) distanceTbl.getModel();
+        dtm.setRowCount(0);
+        for(Distance dis:distanceList){
+            dtm.addRow(new Object[]{dis.getFistCityName(),dis.getSecCityName(),dis.getDistance()});
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

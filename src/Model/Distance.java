@@ -14,7 +14,9 @@ import java.io.Serializable;
 public class Distance implements Serializable{
     
     int firstCityId;
+    String fistCityName;
     int secCityId;
+    String secCityName;
     Integer distance;
 
     public Distance(int firstCityId, int secCityId, Integer distance) {
@@ -22,8 +24,23 @@ public class Distance implements Serializable{
         this.secCityId = secCityId;
         this.distance = distance;
     }
-    
-    
+
+    public String getFistCityName() {
+        return fistCityName;
+    }
+
+    public void setFistCityName(String fistCityName) {
+        this.fistCityName = fistCityName;
+    }
+
+    public String getSecCityName() {
+        return secCityName;
+    }
+
+    public void setSecCityName(String secCityName) {
+        this.secCityName = secCityName;
+    }
+      
 
     public int getFirstCityId() {
         return firstCityId;
