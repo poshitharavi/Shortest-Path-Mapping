@@ -51,7 +51,18 @@ public class AddNewDistance extends javax.swing.JFrame {
         distanceTxt = new javax.swing.JTextField();
         addBtn = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+            public void windowDeactivated(java.awt.event.WindowEvent evt) {
+                formWindowDeactivated(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Add New Distance Between Cites");
@@ -82,6 +93,15 @@ public class AddNewDistance extends javax.swing.JFrame {
         });
 
         distanceTxt.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        distanceTxt.setText("0");
+        distanceTxt.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                distanceTxtFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                distanceTxtFocusLost(evt);
+            }
+        });
         distanceTxt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 distanceTxtKeyTyped(evt);
@@ -157,7 +177,7 @@ public class AddNewDistance extends javax.swing.JFrame {
             
             if(DistanceController.getSelectedDistanceDetails(firstCity, secCity,Integer.parseInt(distanceTxt.getText().toString()))){
                 
-                DistanceController.addNewDistance(firstCity, secCity,Integer.parseInt(distanceTxt.getText().toString()));
+                DistanceController.addNewDistance(firstCity, secCity,Float.parseFloat(distanceTxt.getText().toString()));
                 JOptionPane.showMessageDialog(this, "Distance saved successfully", "Success.", JOptionPane.INFORMATION_MESSAGE);
                 distanceTxt.setText("");
                 fistCityCmb.setSelectedIndex(0);
@@ -194,6 +214,34 @@ public class AddNewDistance extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_distanceTxtKeyTyped
+
+    private void distanceTxtFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_distanceTxtFocusGained
+        // TODO add your handling code here:
+        if(distanceTxt.getText().equals("0")){
+        distanceTxt.setText("");
+        }
+    }//GEN-LAST:event_distanceTxtFocusGained
+
+    private void distanceTxtFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_distanceTxtFocusLost
+        // TODO add your handling code here:
+        if(distanceTxt.getText().equals("")){
+        distanceTxt.setText("0");
+        }
+    }//GEN-LAST:event_distanceTxtFocusLost
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_formWindowClosed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+         new DistanceDetailFrame().setVisible(true);
+    }//GEN-LAST:event_formWindowClosing
+
+    private void formWindowDeactivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowDeactivated
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowDeactivated
 
     /**
      * @param args the command line arguments

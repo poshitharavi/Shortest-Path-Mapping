@@ -23,9 +23,9 @@ import sql.DistanceSQL;
  */
 public class DistanceController {
     
-    public static void addNewDistance(City firstCity, City secCity, Integer distance){
+    public static void addNewDistance(City firstCity, City secCity, float distance){
         
-        if(!firstCity.equals(null) || !secCity.equals(null)|| !distance.toString().equals("")){
+        if(!firstCity.equals(null) || !secCity.equals(null) || distance != 0.0){
             try {
                 Distance dis = new Distance(firstCity.getCityID(), secCity.getCityID(), distance);
                 Connection con = DBConnection.getDBConnection().getConenction();
@@ -78,5 +78,18 @@ public class DistanceController {
         
         
         return distanceList;
+    }
+    
+    public static Boolean deleteSelectedDistance(Distance dis){
+        
+        try {
+            Connection con = DBConnection.getDBConnection().getConenction();
+            DBTransaction.modifyData(DistanceSQL.deleteSelectedDistanceSql(dis), con);
+        } catch (Exception ex) {
+            Logger.getLogger(DistanceController.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }    
+        
+        return true;
     }
 }

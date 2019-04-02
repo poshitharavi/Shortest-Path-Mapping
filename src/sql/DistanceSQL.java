@@ -34,4 +34,11 @@ public class DistanceSQL {
         
         return sql;
     }
+    
+    public static String deleteSelectedDistanceSql(Distance dis){
+        
+        String sql = "DELETE FROM pdsa_assigment.distance where city_form_id = (SELECT idcity FROM pdsa_assigment.city WHERE city_name = '"+dis.getFistCityName()+"') AND city_to_id = (SELECT idcity FROM pdsa_assigment.city WHERE city_name = '"+dis.getSecCityName()+"');";
+        
+        return sql;
+    }
 }

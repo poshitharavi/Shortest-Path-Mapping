@@ -34,7 +34,7 @@ DROP TABLE IF EXISTS `pdsa_assigment`.`distance` ;
 
 CREATE TABLE IF NOT EXISTS `pdsa_assigment`.`distance` (
   `iddistance` INT NOT NULL AUTO_INCREMENT,
-  `distance` INT NOT NULL,
+  `distance` FLOAT NOT NULL,
   `city_form_id` INT NOT NULL,
   `city_to_id` INT NOT NULL,
   PRIMARY KEY (`iddistance`),

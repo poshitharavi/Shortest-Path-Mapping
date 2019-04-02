@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -21,12 +22,14 @@ import javax.swing.table.DefaultTableModel;
  */
 public class DistanceDetailFrame extends javax.swing.JFrame {
 
+    Distance selectedDistance ;
     /**
      * Creates new form DistanceDetailFrame
      */
     public DistanceDetailFrame() {
         initComponents();
         this.loadDistances();
+       
     }
 
     /**
@@ -40,6 +43,7 @@ public class DistanceDetailFrame extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         distanceTbl = new javax.swing.JTable();
+        delBtn = new javax.swing.JToggleButton();
         jMenuBar2 = new javax.swing.JMenuBar();
         jMenu4 = new javax.swing.JMenu();
         addNewCityMenu = new javax.swing.JMenuItem();
@@ -72,7 +76,26 @@ public class DistanceDetailFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        distanceTbl.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                distanceTblFocusLost(evt);
+            }
+        });
+        distanceTbl.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                distanceTblMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(distanceTbl);
+
+        delBtn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        delBtn.setText("Delete");
+        delBtn.setEnabled(false);
+        delBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                delBtnActionPerformed(evt);
+            }
+        });
 
         jMenu4.setText("File");
 
@@ -108,8 +131,13 @@ public class DistanceDetailFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(79, 79, 79)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 656, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(delBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(79, 79, 79)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 656, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(154, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -117,7 +145,9 @@ public class DistanceDetailFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(87, 87, 87)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(113, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
+                .addComponent(delBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         pack();
@@ -133,6 +163,42 @@ public class DistanceDetailFrame extends javax.swing.JFrame {
         new AddNewDistance().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_addDistanceMenuActionPerformed
+
+    private void distanceTblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_distanceTblMouseClicked
+        // TODO add your handling code here:
+        
+         int row=distanceTbl.rowAtPoint(evt.getPoint());
+
+           String cityOne =  distanceTbl.getValueAt(row,0).toString();
+           String cityTwo = distanceTbl.getValueAt(row,1).toString();
+           float distance =  Float.parseFloat(distanceTbl.getValueAt(row,2).toString());
+          
+           if (selectedDistance == null){
+            selectedDistance = new Distance(0, 0, distance);
+         }else{
+             selectedDistance.setDistance(distance);
+           }
+            selectedDistance.setFistCityName(cityOne);
+            selectedDistance.setSecCityName(cityTwo);
+            
+           
+           delBtn.setEnabled(true);
+           
+                                        
+    }//GEN-LAST:event_distanceTblMouseClicked
+
+    private void delBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_delBtnActionPerformed
+        // TODO add your handling code here:
+        
+       DistanceController.deleteSelectedDistance(selectedDistance);
+       loadDistances();
+        
+    }//GEN-LAST:event_delBtnActionPerformed
+
+    private void distanceTblFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_distanceTblFocusLost
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_distanceTblFocusLost
 
     /**
      * @param args the command line arguments
@@ -176,11 +242,13 @@ public class DistanceDetailFrame extends javax.swing.JFrame {
         for(Distance dis:distanceList){
             dtm.addRow(new Object[]{dis.getFistCityName(),dis.getSecCityName(),dis.getDistance()});
         }
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem addDistanceMenu;
     private javax.swing.JMenuItem addNewCityMenu;
+    private javax.swing.JToggleButton delBtn;
     private javax.swing.JTable distanceTbl;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;

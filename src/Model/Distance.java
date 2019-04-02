@@ -17,9 +17,9 @@ public class Distance implements Serializable{
     String fistCityName;
     int secCityId;
     String secCityName;
-    Integer distance;
+    float distance;
 
-    public Distance(int firstCityId, int secCityId, Integer distance) {
+    public Distance(int firstCityId, int secCityId, float distance) {
         this.firstCityId = firstCityId;
         this.secCityId = secCityId;
         this.distance = distance;
@@ -58,13 +58,15 @@ public class Distance implements Serializable{
         this.secCityId = secCityId;
     }
 
-    public Integer getDistance() {
+    public float getDistance() {
         return distance;
     }
 
-    public void setDistance(Integer distance) {
+    public void setDistance(float distance) {
         this.distance = distance;
     }
+
+  
     
     
 }
