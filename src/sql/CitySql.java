@@ -26,4 +26,15 @@ public class CitySql {
         String sql = "SELECT * FROM pdsa_assigment.city";
         return sql;
     }
+    
+    public static String getAllCitiesExistsSql(){
+        String sql = "SELECT *\n" +
+                        "FROM   city \n" +
+                        "WHERE  EXISTS (SELECT city_form_id \n" +
+                        "FROM   distance \n" +
+                        "WHERE  city.idcity = distance.city_form_id or  city.idcity = distance.city_to_id) order by city.city_name";
+        return sql;
+    }
+    
+    
 }

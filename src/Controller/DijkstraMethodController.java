@@ -5,14 +5,17 @@
  */
 package Controller;
 
+import Model.DijkstraOutPut;
+
 /**
  *
  * @author Poshitha_Ravindu
  */
 public class DijkstraMethodController {
     
+    static String path= "";
     
-    public static void dijkstra(int graph[][],int start){
+    public static DijkstraOutPut dijkstra(int graph[][],int start, int end){
         
         //geting the size of branches (cites)
         int arraySize = graph[0].length;
@@ -65,37 +68,39 @@ public class DijkstraMethodController {
                }
            }
         }
-        printGraph(start, dist,parents);
+        return getSelectedOutput(start, end ,dist,parents);
     }
     
     
-    public static void printGraph(int start,int[] distances, int [] parents){
+    public static DijkstraOutPut getSelectedOutput(int start,int end,int[] distances, int [] parents){
         
-        int nVertices = distances.length;
-        System.out.print("Vertex\t Distance\tPath");
-         
-        for (int vertexIndex = 0; vertexIndex < nVertices; vertexIndex++) 
-        {
-            if (vertexIndex != start) 
-            {
-                System.out.print("\n" + start + " -> ");
-                System.out.print(vertexIndex + " \t\t ");
-                System.out.print(distances[vertexIndex] + "\t\t");
-                printPath(vertexIndex, parents);
-                System.out.println(" ");
-            }
-        }
+        DijkstraOutPut out = new DijkstraOutPut();
+
+                if(path != null){
+                    path = "";
+                }
+                getPath(end, parents);
+               
+                out.setStart(start);
+                out.setEnd(end);
+                out.setTotalDistance(distances[end]);
+                out.setPath(path);
+            
+        
+        return out;
     }
     
-    private static void printPath(int currentVertex, int[] parents)
+    private static void getPath(int currentVertex, int[] parents)
     {
          
         if (currentVertex == -1)
         {
             return;
         }
-        printPath(parents[currentVertex], parents);
-        System.out.print(currentVertex + " ");
+        getPath(parents[currentVertex], parents);
+     
+        path+=currentVertex;
+       
     }
     
 }

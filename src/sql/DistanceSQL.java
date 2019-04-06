@@ -30,7 +30,7 @@ public class DistanceSQL {
         String sql = "SELECT iddistance, distance, city_form_id, city_to_id , cf.city_name AS city_from_name , ct.city_name AS city_to_name "
                 + "FROM pdsa_assigment.distance d "
                 + "INNER JOIN pdsa_assigment.city cf ON city_form_id = cf.idcity "
-                + "INNER JOIN pdsa_assigment.city ct ON city_to_id = ct.idcity ;";
+                + "INNER JOIN pdsa_assigment.city ct ON city_to_id = ct.idcity ORDER BY cf.city_name ;";
         
         return sql;
     }

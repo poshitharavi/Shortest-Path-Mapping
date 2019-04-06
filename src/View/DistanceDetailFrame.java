@@ -50,7 +50,7 @@ public class DistanceDetailFrame extends javax.swing.JFrame {
         addNewCityMenu = new javax.swing.JMenuItem();
         addDistanceMenu = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        shortestParthDrop = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -120,8 +120,13 @@ public class DistanceDetailFrame extends javax.swing.JFrame {
 
         jMenu5.setText("Edit");
 
-        jMenuItem2.setText("jMenuItem2");
-        jMenu5.add(jMenuItem2);
+        shortestParthDrop.setText("ShortestPath");
+        shortestParthDrop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                shortestParthDropActionPerformed(evt);
+            }
+        });
+        jMenu5.add(shortestParthDrop);
 
         jMenuBar2.add(jMenu5);
 
@@ -201,6 +206,12 @@ public class DistanceDetailFrame extends javax.swing.JFrame {
        
     }//GEN-LAST:event_distanceTblFocusLost
 
+    private void shortestParthDropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_shortestParthDropActionPerformed
+        // TODO add your handling code here:
+        new  DijkstraView().setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_shortestParthDropActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -235,14 +246,7 @@ public class DistanceDetailFrame extends javax.swing.JFrame {
             }
         });
         
-        int graph [][] = new int [][] {{0,4,0,0,7},
-            {4,0,1,2,0},
-            {0,1,0,6,0},
-            {0,2,6,0,0},
-            {7,0,0,0,0}
-        };
-//        System.err.println(graph.length);
-        DijkstraMethodController.dijkstra(graph, 0);
+        
     }
     
     public void loadDistances(){
@@ -263,7 +267,7 @@ public class DistanceDetailFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JMenuItem shortestParthDrop;
     // End of variables declaration//GEN-END:variables
 }

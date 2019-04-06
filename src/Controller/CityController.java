@@ -75,4 +75,25 @@ public class CityController {
         
         return cityList;
     }
+    public static ArrayList<City>getAllCitiesExists(){
+        
+        ArrayList<City> cityList = new ArrayList<>();
+        try {
+            Connection con = DBConnection.getDBConnection().getConenction();
+            ResultSet rs = DBTransaction.retriveData(CitySql.getAllCitiesExistsSql(), con);
+            
+            while(rs.next()){
+                City city = new City(); 
+                city.setCityID(rs.getInt("idcity"));
+                city.setCityName(rs.getString("city_name"));
+                cityList.add(city);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(CityController.class.getName()).log(Level.SEVERE, null, ex);
+            cityList = null;
+        } 
+        
+        return cityList;
+    }
+    
 }
